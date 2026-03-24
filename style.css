@@ -1,0 +1,67 @@
+:root {
+    --A: #28262C;
+    --B: #998FC7;
+    --C: #D4C2FC;
+    --D: #F9F5FF;
+    --E: #3949AF;
+    --F: #001076;
+}
+
+@font-face {
+    font-family: Norwester;
+    src: url(norwester.otf);
+}
+
+html {
+    background-color: var(--D);
+}
+
+
+.container {
+    display: flex;
+}
+
+.sidebar-conteudo {
+    display: flex;
+    width: 100px;
+    height: 100vh;
+    background-color: var(--C);
+}
+.sidebar-conteudo ul {
+
+}
+
+.button {
+    border-radius: 50px;
+    padding: 15px;
+    font-size: 34px;
+    width: 50px;
+    height: 50px;
+    text-decoration: none;
+    margin: 10px;
+    color: var(--D);
+    text-align: center;
+    font-family: Norwester;
+    display: inline-block;
+}
+
+.button:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.nav {
+  background-color: var(--E);
+  box-shadow: 3px 5px 5px var(--B);
+  border-radius: 50px;
+  transition: all .3s ease-in-out;
+}
+.nav:hover {
+  background-color: var(--F);
+  padding: 20px 60px;
+  width: 100px;
+}
+
+.main {
+}
