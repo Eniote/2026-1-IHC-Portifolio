@@ -27,9 +27,7 @@ html {
     height: 100vh;
     background-color: var(--C);
 }
-.sidebar-conteudo ul {
 
-}
 
 .button {
     border-radius: 50px;
@@ -55,13 +53,19 @@ html {
   background-color: var(--E);
   box-shadow: 3px 5px 5px var(--B);
   border-radius: 50px;
-  transition: all .3s ease-in-out;
+  transition: all .25s ease-in-out;
 }
 .nav:hover {
   background-color: var(--F);
-  padding: 20px 60px;
-  width: 100px;
+  width: 150px;
+  p {opacity: 1;}
+}
+.nav p{
+    font-size: 18px;
+    opacity: 0;
+    white-space: nowrap;
 }
 
 .main {
+
 }
