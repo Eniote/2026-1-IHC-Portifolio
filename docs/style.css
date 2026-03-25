@@ -24,7 +24,7 @@ html {
 .sidebar-conteudo {
     display: flex;
     width: 100px;
-    height: 100vh;
+    height: auto;
     background-color: var(--C);
 }
 
@@ -64,4 +64,12 @@ html {
     font-size: 18px;
     opacity: 0;
     white-space: nowrap;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 20px;
 }
