@@ -11,10 +11,19 @@
     font-family: Norwester;
     src: url(norwester.otf);
 }
+@font-face {
+    font-family: Nunito;
+    src: url(nunito.ttf);
+}
 
 html {
-    background-color: var(--D);
+    background-color: var(--C);
 }
+
+
+
+/************************************************************/
+
 
 
 .container {
@@ -41,6 +50,7 @@ html {
     text-align: center;
     font-family: Norwester;
     display: inline-block;
+    position: relative;
 }
 
 .button:active {
@@ -58,12 +68,14 @@ html {
 .nav:hover {
   background-color: var(--F);
   width: 150px;
-  p {opacity: 1;}
+  p {opacity: 1;
+     font-size: 18px;}
 }
 .nav p{
-    font-size: 18px;
+    font-size: 4px;
     opacity: 0;
     white-space: nowrap;
+    transition: all .25s ease-in-out;
 }
 
 .main {
@@ -72,4 +84,75 @@ html {
     flex-flow: column;
     align-items: center;
     padding: 20px;
+}
+
+
+
+/************************************************************/
+
+
+
+.HMW-background {
+    font-family: nunito;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--B);
+}
+
+h1 {
+    color: var(--F);
+    font-size: 100px;
+    font-weight: bold;
+}
+
+h2 {
+    color: var(--E);
+    font-size: 80px;
+}
+
+h3 {
+    color: black;
+    font-size: 40px;
+}
+
+
+
+/************************************************************/
+
+
+
+table {
+    background-color: var(--C);
+    border: 5px solid var(--E);
+    display: flex;
+    justify-content: space-around;
+    text-align: justify;
+    font-family: nunito;
+}
+
+tr {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+th {
+    font-size: 32px;
+}
+
+td {
+    margin: 5px 10px 0px 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--B);
+    width: 250px;
+    height: 50px;
+    text-overflow: ellipsis;
+    border-radius: 10px;
+}
+
+td:hover {
+    transition: all .25s ease-in-out;
 }

@@ -6,32 +6,72 @@
     <title>🍝 EasyChef Portfolio</title>
     <link href="reset.css" rel="stylesheet" type="text/css" media="all">
     <link href="style.css" rel="stylesheet" type="text/css" media="all">
+    <script src="script.js"></script>
 </head>
-<body>
+<body onload="A1()">
     <div class="container">
         <div class="sidebar-conteudo">
             <ul>
-                <li class="sidebar-pag"><a href="#" class="button nav">A1<p>Matriz CSD</p></a></li>
-                <li class="sidebar-pag"><div class="button nav">A2<p>A decidir</p></div></li>
+                <li class="sidebar-pag"><div class="button nav" onclick="A1()">A1<p>How Might We</p></div></li>
+                <li class="sidebar-pag"><div class="button nav" onclick="A2()">A2<p>Matriz CSD</p></div></li>
+                <li class="sidebar-pag"><div class="button nav" onclick="A3()">A3<p>Competidores</p></div></li>
             </ul>
         </div>
         <div class="main">
-            <img src="img/trello.png">
-            <p>Fontes:</p>
-            <ul>
-                <li><a href="https://psycnet.apa.org/record/1998-04232-003">¹: APA PsycNet</a></li>
-                <li><a href="https://blog.duolingo.com/how-duolingo-streak-builds-habit/">⁶: The habit-building research behind your Duolingo streak</a></li>
-                <li><a href="https://www.smashingmagazine.com/2026/02/designing-streak-system-ux-psychology/">²: Designing A Streak System: The UX And Psychology Of Streaks</a></li>
-                <li><a href="https://www.nngroup.com/videos/zeigarnik-effect/">³: How to Use the Zeigarnik Effect in UX</a></li>
-                <li><a href="https://oglobo.globo.com/brasil/noticia/2024/07/07/geracao-z-e-a-que-mais-pede-comida-via-delivery-fast-food-lidera-preferencias.ghtml">⁴: Geração Z é a que mais pede comida via delivery; fast-food lidera preferências</a></li>
-                <li><a href="https://exame.com/invest/minhas-financas/cozinhar-em-casa-ou-pedir-comida-fora-qual-escolha-pesa-mais-no-bolso/">⁵: Cozinhar em casa ou pedir comida fora: qual escolha pesa mais no bolso?</a></li>
-            </ul>
-            <p>
-                Créditos: Arthur Erthal, Dawson Monteiro, Luan Lopes, Lucas Coutinho
-            </p>
-            <p>
-                <a href="https://github.com/Eniote/2026-1-IHC-Portifolio">Repositorio</a>
-            </p>
+            <A1 id="A1">
+                <div class="HMW-background">
+                    <h1>How Might We...</h1>
+                    <h2>Como podemos tornar o processo de cozinhar mais fácil e divertido</h2>
+                    <h3>Por Arthur Erthal, Dawson Monteiro, Luan Lopes e Lucas Coutinho</h3>
+                </div>
+            </A1>
+            <A2 id="A2">
+                <table>
+                    <tr>
+                        <th>Certezas</th>
+                        <th>Suposições</th>
+                        <th>Dúvidas</th>
+                    </tr>
+                    <tr>
+                        <td>Elementos de gamificação (streaks em particular) aumentam a chance de  formação de hábito no uso de plataformas digitais</td>
+                        <td>Compromisso social (accountability) aumenta a chance de desenvolver um hábito¹</td>
+                        <td>Quais requisitos de interação vêm com o uso do celular na cozinha? Usar com uma mão só? Fontes grandes? (Exemplo: Waze pra dirigir)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <p>Fontes:</p>
+                <ul>
+                    <li><a href="https://psycnet.apa.org/record/1998-04232-003">¹: APA PsycNet</a></li>
+                    <li><a href="https://blog.duolingo.com/how-duolingo-streak-builds-habit/">⁶: The habit-building research behind your Duolingo streak</a></li>
+                    <li><a href="https://www.smashingmagazine.com/2026/02/designing-streak-system-ux-psychology/">²: Designing A Streak System: The UX And Psychology Of Streaks</a></li>
+                    <li><a href="https://www.nngroup.com/videos/zeigarnik-effect/">³: How to Use the Zeigarnik Effect in UX</a></li>
+                    <li><a href="https://oglobo.globo.com/brasil/noticia/2024/07/07/geracao-z-e-a-que-mais-pede-comida-via-delivery-fast-food-lidera-preferencias.ghtml">⁴: Geração Z é a que mais pede comida via delivery; fast-food lidera preferências</a></li>
+                    <li><a href="https://exame.com/invest/minhas-financas/cozinhar-em-casa-ou-pedir-comida-fora-qual-escolha-pesa-mais-no-bolso/">⁵: Cozinhar em casa ou pedir comida fora: qual escolha pesa mais no bolso?</a></li>
+                </ul>
+                <p>
+                    Créditos: Arthur Erthal, Dawson Monteiro, Luan Lopes, Lucas Coutinho
+                </p>
+                <p>
+                    <a href="https://github.com/Eniote/2026-1-IHC-Portifolio">Repositorio</a>
+                </p>
+            </A2>
+            <A3 id="A3">
+                <p>AGBAGBAIEOGFJKDGKJFHSGD</p>
+            </A3>
         </div>
     </div>
     
