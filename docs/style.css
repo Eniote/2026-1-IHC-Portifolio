@@ -135,7 +135,7 @@ table {
 tr {
     display: flex;
     justify-content: space-around;
-    padding: 10px;
+    margin: 10px;
 }
 
 th {
@@ -143,7 +143,55 @@ th {
 }
 
 td {
+    overflow: scroll;
     margin: 5px 10px 0px 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--B);
+    width: 250px;
+    height: 100px;
+    text-overflow: ellipsis;
+    border-radius: 10px;
+    /* transition: all .25s ease-in-out; */
+}
+
+/*
+td:hover {
+    height: 150px;
+    transform: translate(0px, 5px);
+}
+*/
+
+
+/**********************************************************/
+
+
+.table {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+
+}
+
+.t-col {
+    display: flex;
+    flex-flow: column;
+    overflow: scroll;
+}
+
+.t-header {
+    font-size: 32px;
+    text-align: center;
+    width: fill-available;
+    background-color: var(--E);
+}
+
+
+
+
+.t-cell {
+    overflow: scroll;
+    margin: 5px 10px 5px 10px;
     padding: 10px;
     font-size: 16px;
     background-color: var(--B);
@@ -151,8 +199,19 @@ td {
     height: 50px;
     text-overflow: ellipsis;
     border-radius: 10px;
+    transition: all .25s ease-in-out; 
+
 }
 
-td:hover {
-    transition: all .25s ease-in-out;
+
+.t-cell:hover {
+    height: 150px;
+    overflow: scroll;
+    transform: translate(0px, 5px);
+}
+
+
+.t-reff {
+    text-align: bottom;
+    
 }
