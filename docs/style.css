@@ -5,6 +5,7 @@
     --D: #F9F5FF;
     --E: #3949AF;
     --F: #001076;
+    --G: #B9B5BF;
 }
 
 @font-face {
@@ -105,16 +106,20 @@ h1 {
     color: var(--F);
     font-size: 100px;
     font-weight: bold;
+    line-height: 25vh;
 }
 
 h2 {
     color: var(--E);
     font-size: 80px;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
 }
 
 h3 {
     color: black;
     font-size: 40px;
+    line-height: 25vh;
 }
 
 
@@ -217,9 +222,39 @@ td:hover {
 }
 
 
+
 /*********************************************************/
+
+
 
 #Tabela-Analise-Competitiva {
     width: 1000px;
     height: 700px;
+}
+
+
+
+/*********************************************************/
+
+
+
+.formlink {
+    margin-top: 256px;
+    padding: 32px;
+    border-radius: 48px;
+    font-size: 40px;
+    background-color: var(--D);
+    border: 6px var(--D) solid;
+    transition: all .15s ease-in-out;
+}
+
+.formlink:hover {
+    background-color: var(--G);
+    border: 6px var(--E) solid;
+    
+}
+
+.formlink a {
+    text-decoration: none;
+    color: var(--E)
 }

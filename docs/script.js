@@ -1,4 +1,4 @@
-let ids = 3
+let ids = 4
 
 
 function hideAll()
@@ -24,6 +24,12 @@ function A3()
 {
     hideAll()
     document.getElementById("A3").hidden = false
+}
+
+function A4()
+{
+    hideAll()
+    document.getElementById("A4").hidden = false
 }
 
 /*
