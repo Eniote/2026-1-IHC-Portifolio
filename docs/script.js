@@ -1,4 +1,4 @@
-let ids = 4
+let ids = 6
 
 
 function hideAll()
@@ -32,6 +32,17 @@ function A4()
     document.getElementById("A4").hidden = false
 }
 
+function A5()
+{
+    hideAll()
+    document.getElementById("A5").hidden = false
+}
+
+function A6()
+{
+    hideAll()
+    document.getElementById("A6").hidden = false
+}
 /*
 function reveal(A)
 {

@@ -107,22 +107,32 @@ h1 {
     font-size: 100px;
     font-weight: bold;
     line-height: 25vh;
+    background-color: var(--B);
+    text-align: center;
 }
 
 h2 {
     color: var(--E);
     font-size: 80px;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
+    padding: 5vh;;
+    background-color: var(--B);
+    text-align: center;
+    width: 100%;
 }
 
 h3 {
+    color: var(--E);
+    font-size: 80px;
+    padding: 5vh;;
+    background-color: var(--B);
+}
+
+h4 {
     color: black;
     font-size: 40px;
     line-height: 25vh;
+    text-align: center;
 }
-
-
 
 /************************************************************/
 
@@ -172,7 +182,7 @@ td:hover {
 
 
 .table {
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-flow: row;
 
@@ -228,8 +238,11 @@ td:hover {
 
 
 #Tabela-Analise-Competitiva {
-    width: 1000px;
+    width: 80%;
     height: 700px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 15px;
 }
 
 
@@ -257,4 +270,29 @@ td:hover {
 .formlink a {
     text-decoration: none;
     color: var(--E)
+}
+
+
+/***************************************************/
+
+.nav-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+    flex-flow: row;
+}
+
+.nav-item {
+    float: left;
+}
+
+.section {
+    width: 100%;
+}
+
+.explanetion {
+    max-width: 800px;
+    margin: 15px 20% 15px 20%;
 }
