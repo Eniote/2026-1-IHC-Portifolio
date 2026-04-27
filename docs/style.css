@@ -19,6 +19,7 @@
 
 html {
     background-color: var(--C);
+    font-family: Nunito;
 }
 
 
@@ -292,7 +293,8 @@ td:hover {
     width: 100%;
 }
 
-.explanetion {
+.explanation {
+    font-size: 18px;
     max-width: 800px;
     margin: 15px 20% 15px 20%;
 }
