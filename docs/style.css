@@ -298,3 +298,13 @@ td:hover {
     max-width: 800px;
     margin: 15px 20% 15px 20%;
 }
+
+.internal-content{
+    display: flex;
+    flex-flow: row;
+    width: auto;
+}
+
+.side-col {
+    width: 20%;
+}
