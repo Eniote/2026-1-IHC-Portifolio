@@ -308,3 +308,30 @@ td:hover {
 .side-col {
     width: 20%;
 }
+
+.persona {
+    max-width: 400px;
+    margin-right: 5vh;
+}
+
+.persona-box {
+    display: flex;
+    margin: 5vh;
+}
+
+.persona-text {
+    display: flex;
+    flex-flow: column;
+    font-size: 20px;
+    white-space-collapse:break-spaces;
+}
+
+.persona-h1 {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 5vh;
+}
+
+b {
+    font-weight: bold;
+}
