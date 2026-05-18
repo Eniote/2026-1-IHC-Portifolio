@@ -270,7 +270,37 @@
         <!----------------------- Modelo de Tarefas --------------------------->
         <A7 id="A7" class="section">
         <h2>Modelo de Tarefas</h2>
-            <p class="explanation">
+            <p class="task-model">
+                Modelo de Tarefas para acesso ao aplicativo EasyChef:
+                    
+                    <b>1.1)</b> Usuário está olhando para a tela
+
+                    <b>1.2)</b> Usuário decide se:
+
+                        <b>1.2.1)</b> Segue  a receita genérica (botão)
+
+                        <b>1.2.2)</b> Segue  a receita do amigo (botão)
+
+                        <b>1.2.3)</b> Segue  a receita feita (botão)
+
+                    <b>1.3)</b> Usuário clica em "registrar receita feita" (botão)
+
+                    <b>1.4)</b> Usuário registra receita feita:
+
+                        <b>1.4.1)</b> Usuário escreve titulo
+
+                        <b>1.4.2)</b> Usuário escreve descrição
+
+                        <b>1.4.3)</b> Usuário escreve data e hora (opcional)
+
+                        <b>1.4.4)</b> Usuário deve registrar foto (botão)
+
+                            <b>1.4.4.1)</b> Usuário deve escolher se quer tirar uma foto ou selecionar da galeria:
+
+                                <b>1.4.4.2)</b> Usuário escolheu a foto
+
+                        <b>1.4.5)</b> Usuário terminou de inserir informações e aperta em publicar (botão)
+
             </p>
         </A7>
         <!----------------------- Cenarios Problema --------------------------->
@@ -283,7 +313,29 @@
         <A9 id="A9" class="section">
         <h2>Interface</h2>
             <p class="explanation">
+                <img src="img/PreviewFigma.png">
             </p>
+            <p class="explanation">A tela acima, produzida no figma, é uma demonstração do "feed" do usuário, onde pode consultar as receitas feitas por seus contatos. Por padrão, ao abrir o aplicativo, será levado a essa tela (a não ser que ainda tenha que registrar uma conta no serviço).</p>
+            <p class="explanation">O botão rosa na parte inferior direita é onde o usuário deve apertar para criar um novo "post", seja seguindo uma receita que exista no aplicativo, ou postando uma fotografia de uma receita que o usuário já tenha seguido por fora. Ao apertar, será levado a uma tela com essa aparência:</p>
+            <p class="explanation">
+                <img src="img/PreviewPaper1.png">
+            </p>
+            <p class="explanation">Aqui, o usuário pode escolher seguir uma receita do app (a lista padrão), uma receita já feita por um amigo, ou registrar a própria. Se o usuário escolher seguir uma receita, seja da lista padrão ou já feita por um amigo:</p>
+            <p class="explanation">
+                <img src="img/PreviewPaper2.png">
+            </p>
+            <p class="explanation">O usuário poderá "scrollar" pelas receitas recomendadas ou buscar uma receita que tenha em mente. Também é planejado colocar outras formas de filtar receitas, como por ingredientes, por dieta, por dificuldade, etc.</p>
+            <p class="explanation">
+                <img src="img/PreviewPaper3.png">
+            </p>
+            <p class="explanation">Ao escolher uma receita, será levado a sua tela de preparo, onde há um "checklist" de ingredientes, podendo marcar os que já possui em mão para melhor organização. Abaixo, possui as etapas, com uma seta indicando a etapa atual em que o usuário se encontra. Ao terminar cada etapa, pode marcar como concluída para ir para a próxima.</p>
+            <p class="explanation">
+                <img src="img/PreviewPaper4.png">
+            </p>
+            <p class="explanation">
+                Por fim, ao terminar a receita OU se selecionar "registrar uma receita já feita", no primeiro menu do cenário, o usuário será levado para esta tela, onde deve preencher os dados do seu "post". Um título para o post, como o nome da receita, uma foto do prato cozinhado, uma descrição onde pode falar sobre quais dificuldades enfrentou, o que achou da receita, quaisquer mudanças que tenha feito, e um campo para alterar a data e hora, caso esteja postando a foto de uma receita cozinhada em um outro dia. Por fim, ao apertar o botão "Submit", o registro é criado e os outros usuários, que forem amigos deste, poderão ver a postagem.
+            </p>
+
         </A9>
       
     </div>

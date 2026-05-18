@@ -335,3 +335,8 @@ td:hover {
 b {
     font-weight: bold;
 }
+
+.task-model {
+    font-size: 24px;
+    white-space-collapse:break-spaces;
+}
