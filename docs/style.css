@@ -340,3 +340,66 @@ b {
     font-size: 24px;
     white-space-collapse:break-spaces;
 }
+
+/* Cenários Problema */
+.cenario-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px 40px;
+}
+
+.cenario-card {
+    background-color: var(--D);
+    border-radius: 16px;
+    padding: 35px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid var(--E);
+}
+
+.cenario-title {
+    font-size: 32px;
+    color: var(--F);
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--C);
+}
+
+.cenario-card .cenario-field {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    color: #333;
+    text-align: justify;
+}
+
+.cenario-card .cenario-field b {
+    color: var(--E);
+    font-size: 17px;
+}
+
+.cenario-card .cenario-list {
+    font-size: 16px;
+    margin: 4px 0 4px 25px;
+    color: #333;
+    list-style-type: disc;
+}
+
+.cenario-card .cenario-problems {
+    background-color: var(--C);
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin-top: 18px;
+}
+
+.cenario-card .cenario-problems p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.cenario-card .cenario-problems b {
+    color: var(--F);
+}
