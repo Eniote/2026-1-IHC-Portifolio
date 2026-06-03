@@ -436,29 +436,160 @@
         <!----------------------- Interface --------------------------->
         <A9 id="A9" class="section">
         <h2>Interface</h2>
-            <p class="explanation">
-                <img src="img/PreviewFigma.png">
-            </p>
-            <p class="explanation">A tela acima, produzida no figma, é uma demonstração do "feed" do usuário, onde pode consultar as receitas feitas por seus contatos. Por padrão, ao abrir o aplicativo, será levado a essa tela (a não ser que ainda tenha que registrar uma conta no serviço).</p>
-            <p class="explanation">O botão rosa na parte inferior direita é onde o usuário deve apertar para criar um novo "post", seja seguindo uma receita que exista no aplicativo, ou postando uma fotografia de uma receita que o usuário já tenha seguido por fora. Ao apertar, será levado a uma tela com essa aparência:</p>
-            <p class="explanation">
-                <img src="img/PreviewPaper1.png">
-            </p>
-            <p class="explanation">Aqui, o usuário pode escolher seguir uma receita do app (a lista padrão), uma receita já feita por um amigo, ou registrar a própria. Se o usuário escolher seguir uma receita, seja da lista padrão ou já feita por um amigo:</p>
-            <p class="explanation">
-                <img src="img/PreviewPaper2.png">
-            </p>
-            <p class="explanation">O usuário poderá "scrollar" pelas receitas recomendadas ou buscar uma receita que tenha em mente. Também é planejado colocar outras formas de filtar receitas, como por ingredientes, por dieta, por dificuldade, etc.</p>
-            <p class="explanation">
-                <img src="img/PreviewPaper3.png">
-            </p>
-            <p class="explanation">Ao escolher uma receita, será levado a sua tela de preparo, onde há um "checklist" de ingredientes, podendo marcar os que já possui em mão para melhor organização. Abaixo, possui as etapas, com uma seta indicando a etapa atual em que o usuário se encontra. Ao terminar cada etapa, pode marcar como concluída para ir para a próxima.</p>
-            <p class="explanation">
-                <img src="img/PreviewPaper4.png">
-            </p>
-            <p class="explanation">
-                Por fim, ao terminar a receita OU se selecionar "registrar uma receita já feita", no primeiro menu do cenário, o usuário será levado para esta tela, onde deve preencher os dados do seu "post". Um título para o post, como o nome da receita, uma foto do prato cozinhado, uma descrição onde pode falar sobre quais dificuldades enfrentou, o que achou da receita, quaisquer mudanças que tenha feito, e um campo para alterar a data e hora, caso esteja postando a foto de uma receita cozinhada em um outro dia. Por fim, ao apertar o botão "Submit", o registro é criado e os outros usuários, que forem amigos deste, poderão ver a postagem.
-            </p>
+          <p class="explanation">
+            Protótipo interativo em estilo mobile (referência GymRats) aplicado ao EasyChef. Nesta versão, os blocos de imagem são placeholders e podem ser substituídos depois pelos assets finais.
+          </p>
+
+          <div class="easychef-proto" id="easychefProto">
+            <div class="easychef-phone">
+              <header class="ec-topbar">
+                <button class="ec-icon-btn" id="ecHamburgerBtn" aria-label="Abrir menu">☰</button>
+                <h3 class="ec-title">EasyChef</h3>
+                <button class="ec-icon-btn" id="ecBellBtn" aria-label="Notificações">🔔</button>
+              </header>
+
+              <aside class="ec-drawer" id="ecDrawer" aria-hidden="true">
+                <div class="ec-drawer-header">Olá, Chef</div>
+                <button class="ec-drawer-item" data-ec-view="feed">Meu feed</button>
+                <button class="ec-drawer-item" data-ec-view="grupos">Meus grupos</button>
+                <button class="ec-drawer-item" data-ec-view="receitas">Receitas salvas</button>
+                <button class="ec-drawer-item" data-ec-view="perfil">Perfil</button>
+                <button class="ec-drawer-item" data-ec-view="config">Configurações</button>
+              </aside>
+              <div class="ec-backdrop" id="ecBackdrop"></div>
+
+              <main class="ec-content">
+                <section class="ec-view active" id="ecView-feed">
+                  <div class="ec-group-card">
+                    <div class="ec-group-thumb">Imagem do desafio</div>
+                    <div class="ec-group-meta">
+                      <div><strong>Desafio:</strong> 7 dias cozinhando</div>
+                      <div>Você: 2 receitas • Líder: 5 receitas</div>
+                    </div>
+                  </div>
+
+                  <div class="ec-feed-list">
+                    <article class="ec-post-card" data-ec-view="post">
+                      <div class="ec-avatar">AL</div>
+                      <div class="ec-post-main">
+                        <h4>aline fez Frango Grelhado</h4>
+                        <p>"Usei alho, limão e páprica. Ficou pronto em 35 min."</p>
+                        <small>Hoje, 18:45</small>
+                      </div>
+                    </article>
+                    <article class="ec-post-card" data-ec-view="post">
+                      <div class="ec-avatar">TH</div>
+                      <div class="ec-post-main">
+                        <h4>thomaz fez Macarrão ao alho e óleo</h4>
+                        <p>"Receita simples pra noite corrida."</p>
+                        <small>Ontem, 21:10</small>
+                      </div>
+                    </article>
+                    <article class="ec-post-card" data-ec-view="post">
+                      <div class="ec-avatar">BA</div>
+                      <div class="ec-post-main">
+                        <h4>bárbara fez Panqueca integral</h4>
+                        <p>"Troquei a farinha e ficou ótimo."</p>
+                        <small>Ontem, 12:30</small>
+                      </div>
+                    </article>
+                  </div>
+                </section>
+
+                <section class="ec-view" id="ecView-grupos">
+                  <h4 class="ec-view-title">Meus Grupos</h4>
+                  <div class="ec-simple-card">Lindinhos • 214 dias restantes</div>
+                  <div class="ec-simple-card">Chef da Semana • 18 dias restantes</div>
+                  <div class="ec-simple-card">Cozinha de República • 7 dias restantes</div>
+                </section>
+
+                <section class="ec-view" id="ecView-receitas">
+                  <h4 class="ec-view-title">Receitas Salvas</h4>
+                  <div class="ec-simple-card">Arroz de forno rápido</div>
+                  <div class="ec-simple-card">Frango cremoso</div>
+                  <div class="ec-simple-card">Panqueca integral</div>
+                </section>
+
+                <section class="ec-view" id="ecView-perfil">
+                  <h4 class="ec-view-title">Perfil</h4>
+                  <div class="ec-simple-card">Nome: Chef Easy</div>
+                  <div class="ec-simple-card">Receitas postadas: 12</div>
+                  <div class="ec-simple-card">Sequência atual: 4 dias</div>
+                </section>
+
+                <section class="ec-view" id="ecView-config">
+                  <h4 class="ec-view-title">Configurações</h4>
+                  <div class="ec-simple-card">Notificações</div>
+                  <div class="ec-simple-card">Privacidade</div>
+                  <div class="ec-simple-card">Ajuda e feedback</div>
+                </section>
+
+                <section class="ec-view" id="ecView-actions">
+                  <h4 class="ec-view-title">Nova ação</h4>
+                  <button class="ec-action-btn" data-ec-view="buscar">Seguir receita EasyChef</button>
+                  <button class="ec-action-btn" data-ec-view="buscar">Seguir receita de amigo</button>
+                  <button class="ec-action-btn" data-ec-view="nova">Registrar receita nova</button>
+                </section>
+
+                <section class="ec-view" id="ecView-buscar">
+                  <h4 class="ec-view-title">Buscar receita</h4>
+                  <div class="ec-chip-row">
+                    <button class="ec-chip active">Rápidas (≤ 40 min)</button>
+                    <button class="ec-chip">Baixo custo</button>
+                    <button class="ec-chip">Iniciante</button>
+                  </div>
+                  <input class="ec-input" placeholder="Buscar receita...">
+                  <button class="ec-result" data-ec-view="cozinhar">Panqueca integral de frango</button>
+                  <button class="ec-result" data-ec-view="cozinhar">Macarrão alho e óleo</button>
+                  <button class="ec-result" data-ec-view="cozinhar">Arroz cremoso de forno</button>
+                </section>
+
+                <section class="ec-view" id="ecView-cozinhar">
+                  <h4 class="ec-view-title">Preparar receita</h4>
+                  <div class="ec-step-progress">
+                    <div class="ec-step active">Ingredientes</div>
+                    <div class="ec-step">Preparo</div>
+                    <div class="ec-step">Finalização</div>
+                  </div>
+                  <div class="ec-simple-card">Checklist: frango, farinha integral, leite, ovo</div>
+                  <div class="ec-simple-card">Dica contextual: se estiver cansado, escolha versão rápida.</div>
+                  <button class="ec-submit" data-ec-view="nova">Concluir e registrar</button>
+                </section>
+
+                <section class="ec-view" id="ecView-nova">
+                  <h4 class="ec-view-title">Criar nova receita</h4>
+                  <div class="ec-step-progress">
+                    <div class="ec-step">Dados</div>
+                    <div class="ec-step active">Descrição</div>
+                    <div class="ec-step">Publicar</div>
+                  </div>
+                  <input class="ec-input" placeholder="Título da receita">
+                  <textarea class="ec-input ec-textarea" placeholder="Descrição"></textarea>
+                  <div class="ec-upload">Espaço da foto (placeholder)</div>
+                  <button class="ec-submit" data-ec-view="feed">Publicar</button>
+                </section>
+
+                <section class="ec-view" id="ecView-post">
+                  <h4 class="ec-view-title">Detalhe do post</h4>
+                  <div class="ec-post-detail-image">Imagem da receita (placeholder)</div>
+                  <p class="ec-post-detail-text"><strong>Panqueca integral</strong><br>Tempo: 40 min • Dificuldade: média</p>
+                  <div class="ec-simple-card">❤️ 14 curtidas • 💬 6 comentários • 🔖 3 salvos</div>
+                  <div class="ec-post-detail-actions">
+                    <button class="ec-pill" data-ec-view="buscar">ver receita</button>
+                    <button class="ec-pill">salvar</button>
+                  </div>
+                </section>
+              </main>
+
+              <button class="ec-fab" id="ecFab" aria-label="Incluir receita">+</button>
+
+              <nav class="ec-bottom-nav">
+                <button class="ec-bottom-item active" data-ec-view="feed">Feed</button>
+                <button class="ec-bottom-item" data-ec-view="grupos">Grupos</button>
+                <button class="ec-bottom-item" data-ec-view="perfil">Perfil</button>
+              </nav>
+            </div>
+          </div>
 
         </A9>
       
