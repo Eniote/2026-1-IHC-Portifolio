@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyChef - Protótipo Interativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .prototype-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .screen.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .screen.exit-left {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        .screen img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hotspot {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .hotspot:hover {
+            transform: scale(1.08);
+        }
+
+        .hotspot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 75, 145, 0.25);
+            border: 3px dashed #FF4B91;
+            border-radius: 10px;
+            opacity: 0;
+            transition: all 0.3s;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .hotspot:hover::before {
+            opacity: 0.9;
+            background: rgba(255, 75, 145, 0.4);
+            border-style: solid;
+        }
+
+        /* Tooltip para hotspots */
+        .hotspot::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            z-index: 20;
+        }
+
+        .hotspot:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Modo apresentação - esconde hotspots */
+        body.presentation-mode .hotspot::before {
+            opacity: 0 !important;
+        }
+
+        body.presentation-mode .hotspot::after {
+            display: none !important;
+        }
+
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 300px;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: #667eea;
+            color: white;
+        }
+
+        .nav-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .flow-indicator {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.98);
+            padding: 15px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-weight: bold;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+
+        /* Barra de progresso */
+        .progress-bar {
+            position: fixed;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-dot.active {
+            background: #667eea;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .progress-dot.visited {
+            background: #FF4B91;
+        }
+
+        .progress-dot:hover::after {
+            content: attr(data-screen);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        /* Mini-mapa de navegação */
+        .minimap {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 200px;
+        }
+
+        .minimap h4 {
+            margin-bottom: 10px;
+            color: #667eea;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .minimap-item {
+            padding: 8px 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f5f5f5;
+        }
+
+        .minimap-item.active {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .minimap-item:hover:not(.active) {
+            background: #FF4B91;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 75, 145, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(255, 75, 145, 0);
+            }
+        }
+
+        .instructions {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 24px;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            z-index: 998;
+        }
+
+        .instructions.fade {
+            animation: fadeInOut 5s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+        }
+
+        /* Indicador de teclas de atalho */
+        .keyboard-hint {
+            position: fixed;
+            top: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #666;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 998;
+        }
+
+        .keyboard-hint kbd {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            margin: 0 2px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .minimap {
+                bottom: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 90%;
+            }
+
+            .nav-controls {
+                bottom: 20px;
+                right: 50%;
+                transform: translateX(50%);
+                width: 90%;
+                justify-content: center;
+            }
+
+            .keyboard-hint {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flow-indicator {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .progress-bar {
+                padding: 10px 15px;
+                gap: 8px;
+            }
+
+            .progress-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* Transição suave ao mudar de tela */
+        .screen-transition {
+            animation: screenFade 0.4s ease-in-out;
+        }
+
+        @keyframes screenFade {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Flow Indicator -->
+    <div class="flow-indicator" id="flowIndicator" role="status" aria-live="polite">Tela: Feed de Receitas</div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar" role="navigation" aria-label="Progresso da navegação">
+        <div class="progress-dot" data-screen="Feed" onclick="goToScreen(1)" role="button" tabindex="0" aria-label="Ir para Feed"></div>
+        <div class="progress-dot" data-screen="Escolher" onclick="goToScreen(2)" role="button" tabindex="0" aria-label="Ir para Escolher"></div>
+        <div class="progress-dot" data-screen="Buscar" onclick="goToScreen(3)" role="button" tabindex="0" aria-label="Ir para Buscar"></div>
+        <div class="progress-dot" data-screen="Preparar" onclick="goToScreen(4)" role="button" tabindex="0" aria-label="Ir para Preparar"></div>
+        <div class="progress-dot" data-screen="Postar" onclick="goToScreen(5)" role="button" tabindex="0" aria-label="Ir para Postar"></div>
+    </div>
+
+    <!-- Keyboard Hints -->
+    <div class="keyboard-hint">
+        Atalhos: <kbd>←</kbd> Voltar | <kbd>→</kbd> Avançar | <kbd>R</kbd> Reiniciar | <kbd>H</kbd> Toggle Hotspots
+    </div>
+    
+    <!-- Prototype Container -->
+    <div class="prototype-container" role="main">
+        <!-- Screen 1: Feed (Figma) -->
+        <div class="screen active" id="screen1" role="region" aria-label="Tela Feed de Receitas">
+            <img src="img/PreviewFigma.png" alt="Feed de receitas mostrando posts de amigos">
+            <!-- Hotspot no botão rosa -->
+            <div class="hotspot pulse" 
+                 style="bottom: 8%; right: 8%; width: 60px; height: 60px; border-radius: 50%;" 
+                 onclick="goToScreen(2)"
+                 data-tooltip="Criar nova receita"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Botão para criar nova receita"></div>
+        </div>
+
+        <!-- Screen 2: Escolher tipo de receita (Paper1) -->
+        <div class="screen" id="screen2" role="region" aria-label="Tela Escolher Tipo de Receita">
+            <img src="img/PreviewPaper1.png" alt="Escolher tipo de receita">
+            <!-- Hotspot nas 3 opções -->
+            <div class="hotspot" 
+                 style="top: 25%; left: 15%; right: 15%; height: 15%;" 
+                 onclick="goToScreen(3)"
+                 data-tooltip="Seguir receita da lista"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Opção: Seguir receita da lista"></div>
+            <div class="hotspot" 
+                 style="top: 42%; left: 15%; right: 15%; height: 15%;" 
+                 onclick="goToScreen(3)"
+                 data-tooltip="Seguir receita de amigo"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Opção: Seguir receita de amigo"></div>
+            <div class="hotspot" 
+                 style="top: 59%; left: 15%; right: 15%; height: 15%;" 
+                 onclick="goToScreen(5)"
+                 data-tooltip="Registrar receita pronta"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Opção: Registrar receita já feita"></div>
+        </div>
+
+        <!-- Screen 3: Buscar receita (Paper2) -->
+        <div class="screen" id="screen3" role="region" aria-label="Tela Buscar Receita">
+            <img src="img/PreviewPaper2.png" alt="Lista de receitas disponíveis">
+            <!-- Hotspot em uma receita da lista -->
+            <div class="hotspot" 
+                 style="top: 35%; left: 10%; right: 10%; height: 12%;" 
+                 onclick="goToScreen(4)"
+                 data-tooltip="Selecionar esta receita"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Receita na lista"></div>
+            <div class="hotspot" 
+                 style="top: 50%; left: 10%; right: 10%; height: 12%;" 
+                 onclick="goToScreen(4)"
+                 data-tooltip="Selecionar esta receita"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Outra receita na lista"></div>
+        </div>
+
+        <!-- Screen 4: Preparar receita (Paper3) -->
+        <div class="screen" id="screen4" role="region" aria-label="Tela Preparar Receita">
+            <img src="img/PreviewPaper3.png" alt="Detalhes da receita e modo de preparo">
+            <!-- Hotspot no botão de concluir -->
+            <div class="hotspot pulse" 
+                 style="bottom: 10%; left: 20%; right: 20%; height: 50px; border-radius: 25px;" 
+                 onclick="goToScreen(5)"
+                 data-tooltip="Concluir preparo"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Botão para concluir o preparo da receita"></div>
+        </div>
+
+        <!-- Screen 5: Postar receita (Paper4) -->
+        <div class="screen" id="screen5" role="region" aria-label="Tela Postar Receita">
+            <img src="img/PreviewPaper4.png" alt="Formulário para postar receita">
+            <!-- Hotspot no botão Submit -->
+            <div class="hotspot pulse" 
+                 style="bottom: 15%; left: 25%; right: 25%; height: 50px; border-radius: 25px;" 
+                 onclick="goToScreen(1)"
+                 data-tooltip="Publicar receita"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Botão para publicar a receita"></div>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions fade" role="complementary">
+        👆 Clique nas áreas destacadas para navegar | Use as setas do teclado
+    </div>
+
+    <!-- Mini Map -->
+    <div class="minimap" role="navigation" aria-label="Mapa de navegação">
+        <h4>Navegação</h4>
+        <div class="minimap-item active" data-screen="1" onclick="goToScreen(1)">1. Feed de Receitas</div>
+        <div class="minimap-item" data-screen="2" onclick="goToScreen(2)">2. Escolher Tipo</div>
+        <div class="minimap-item" data-screen="3" onclick="goToScreen(3)">3. Buscar Receita</div>
+        <div class="minimap-item" data-screen="4" onclick="goToScreen(4)">4. Preparar Receita</div>
+        <div class="minimap-item" data-screen="5" onclick="goToScreen(5)">5. Postar Receita</div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls" role="navigation" aria-label="Controles de navegação">
+        <button class="nav-btn" onclick="previousScreen()" id="prevBtn" aria-label="Voltar para tela anterior">← Voltar</button>
+        <button class="nav-btn" onclick="toggleHotspots()" id="hotspotsBtn" aria-label="Alternar visualização de hotspots">👁️ Hotspots</button>
+        <button class="nav-btn" onclick="resetFlow()" aria-label="Reiniciar fluxo do protótipo">🔄 Reiniciar</button>
+    </div>
+
+    <script>
+        let currentScreen = 1;
+        let screenHistory = [1];
+        let visitedScreens = new Set([1]);
+        let hotspotsVisible = true;
+        
+        const screenTitles = {
+            1: 'Feed de Receitas',
+            2: 'Escolher Tipo',
+            3: 'Buscar Receita',
+            4: 'Preparar Receita',
+            5: 'Postar Receita'
+        };
+
+        // Navegação entre telas
+        function goToScreen(screenNumber) {
+            if (screenNumber === currentScreen) return;
+            if (screenNumber < 1 || screenNumber > 5) return;
+
+            const current = document.getElementById(`screen${currentScreen}`);
+            const next = document.getElementById(`screen${screenNumber}`);
+
+            // Animation
+            current.classList.remove('active');
+            current.classList.add('exit-left');
+            
+            setTimeout(() => {
+                current.classList.remove('exit-left');
+            }, 400);
+
+            next.classList.add('active');
+
+            // Update history and visited
+            screenHistory.push(screenNumber);
+            visitedScreens.add(screenNumber);
+            currentScreen = screenNumber;
+
+            // Update UI
+            updateFlowIndicator();
+            updateButtons();
+            updateProgressBar();
+            updateMinimap();
+        }
+
+        // Voltar para tela anterior
+        function previousScreen() {
+            if (screenHistory.length > 1) {
+                screenHistory.pop();
+                const prevScreen = screenHistory[screenHistory.length - 1];
+                
+                const current = document.getElementById(`screen${currentScreen}`);
+                const prev = document.getElementById(`screen${prevScreen}`);
+
+                current.classList.remove('active');
+                prev.classList.add('active');
+
+                currentScreen = prevScreen;
+                
+                updateFlowIndicator();
+                updateButtons();
+                updateProgressBar();
+                updateMinimap();
+            }
+        }
+
+        // Avançar para próxima tela lógica
+        function nextScreen() {
+            const nextScreenMap = {
+                1: 2,  // Feed -> Escolher
+                2: 3,  // Escolher -> Buscar
+                3: 4,  // Buscar -> Preparar
+                4: 5,  // Preparar -> Postar
+                5: 1   // Postar -> Feed
+            };
+            
+            const next = nextScreenMap[currentScreen];
+            if (next) {
+                goToScreen(next);
+            }
+        }
+
+        // Reiniciar fluxo
+        function resetFlow() {
+            const current = document.getElementById(`screen${currentScreen}`);
+            const first = document.getElementById('screen1');
+
+            current.classList.remove('active');
+            first.classList.add('active');
+
+            currentScreen = 1;
+            screenHistory = [1];
+            visitedScreens = new Set([1]);
+            
+            updateFlowIndicator();
+            updateButtons();
+            updateProgressBar();
+            updateMinimap();
+        }
+
+        // Toggle visibilidade dos hotspots
+        function toggleHotspots() {
+            hotspotsVisible = !hotspotsVisible;
+            document.body.classList.toggle('presentation-mode');
+            
+            const btn = document.getElementById('hotspotsBtn');
+            btn.textContent = hotspotsVisible ? '👁️ Hotspots' : '🚫 Hotspots';
+            btn.setAttribute('aria-label', hotspotsVisible ? 'Ocultar hotspots' : 'Mostrar hotspots');
+        }
+
+        // Atualizar indicador de tela
+        function updateFlowIndicator() {
+            const indicator = document.getElementById('flowIndicator');
+            const screenNum = currentScreen;
+            const totalScreens = 5;
+            
+            indicator.textContent = `Tela ${screenNum}/${totalScreens}: ${screenTitles[currentScreen]}`;
+            
+            // Animate
+            indicator.style.transform = 'translateX(-50%) scale(1.1)';
+            setTimeout(() => {
+                indicator.style.transform = 'translateX(-50%) scale(1)';
+            }, 200);
+        }
+
+        // Atualizar barra de progresso
+        function updateProgressBar() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                const screenNum = index + 1;
+                dot.classList.remove('active', 'visited');
+                
+                if (screenNum === currentScreen) {
+                    dot.classList.add('active');
+                } else if (visitedScreens.has(screenNum)) {
+                    dot.classList.add('visited');
+                }
+            });
+        }
+
+        // Atualizar minimapa
+        function updateMinimap() {
+            const items = document.querySelectorAll('.minimap-item');
+            items.forEach(item => {
+                const screenNum = parseInt(item.getAttribute('data-screen'));
+                item.classList.toggle('active', screenNum === currentScreen);
+            });
+        }
+
+        // Atualizar botões de navegação
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            prevBtn.disabled = screenHistory.length <= 1;
+        }
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    previousScreen();
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    nextScreen();
+                    break;
+                case 'r':
+                case 'R':
+                    e.preventDefault();
+                    resetFlow();
+                    break;
+                case 'h':
+                case 'H':
+                    e.preventDefault();
+                    toggleHotspots();
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    resetFlow();
+                    break;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                    e.preventDefault();
+                    goToScreen(parseInt(e.key));
+                    break;
+            }
+        });
+
+        // Acessibilidade: permitir navegação por Enter/Space nos hotspots e botões
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.classList.contains('hotspot') || 
+                    e.target.classList.contains('progress-dot') ||
+                    e.target.classList.contains('minimap-item')) {
+                    e.preventDefault();
+                    e.target.click();
+                }
+            }
+        });
+
+        // Touch feedback para mobile
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.hotspot, .nav-btn, .progress-dot, .minimap-item').forEach(el => {
+                el.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                el.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
+
+        // Animação suave ao carregar
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Initialize
+        updateFlowIndicator();
+        updateButtons();
+        updateProgressBar();
+        updateMinimap();
+
+        // Log para debugging (remover em produção)
+        console.log('🍳 EasyChef Prototype loaded!');
+        console.log('Keyboard shortcuts:');
+        console.log('  ← → : Navigate between screens');
+        console.log('  R : Reset flow');
+        console.log('  H : Toggle hotspots');
+        console.log('  1-5 : Jump to specific screen');
+        console.log('  ESC : Reset flow');
+    </script>
+</body>
+</html>
